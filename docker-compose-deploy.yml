@@ -1,0 +1,17 @@
+#isolate the depenency of the google cloud sdk from local machine
+#create a reproducible env for all devs on project
+
+version: '3.9'
+
+services:
+  gcloud:
+    image: google/cloud-sdk:338.0.0
+    volumes:
+      - gcp-creds:/creds
+      - .:/app
+    working_dir: /app
+    environment:
+      - CLOUDSDK_CONFIG=/creds
+
+volumes:
+  gcp-creds:
